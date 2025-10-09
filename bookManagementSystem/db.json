@@ -1,0 +1,12 @@
+{
+  "books": [
+    {
+      "id": 1753981269442,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "genre": "Fiction",
+      "publishedYear": 1925,
+      "status": "available"
+    }
+  ]
+}
