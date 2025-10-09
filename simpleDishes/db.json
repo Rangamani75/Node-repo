@@ -1,0 +1,7 @@
+{
+  "dishes": [
+    { "id": 1, "name": "Idly", "price": 50, "category": "BreakFast" },
+    { "name": "Rice", "category": "Lunch", "price": 70, "id": 3 },
+    { "name": "Lemone", "price": 100, "category": "Dinner", "id": 4 }
+  ]
+}
