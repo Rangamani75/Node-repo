@@ -1,0 +1,916 @@
+example> db.receipies.find()
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925cf'),
+    recipe_id: 1,
+    name: 'Spaghetti Carbonara',
+    ingredients: [ 'Spaghetti', 'Eggs', 'Pancetta', 'Parmesan', 'Black Pepper' ],
+    cuisine: 'Italian',
+    prep_time: 20,
+    difficulty: 'easy',
+    price: 500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d0'),
+    recipe_id: 2,
+    name: 'Chicken Biryani',
+    ingredients: [ 'Rice', 'Chicken', 'Yogurt', 'Spices', 'Onion' ],
+    cuisine: 'Indian',
+    prep_time: 60,
+    difficulty: 'medium',
+    price: 800
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d1'),
+    recipe_id: 3,
+    name: 'Sushi',
+    ingredients: [ 'Rice', 'Nori', 'Fish', 'Soy Sauce', 'Wasabi' ],
+    cuisine: 'Japanese',
+    prep_time: 50,
+    difficulty: 'hard',
+    price: 1200
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d2'),
+    recipe_id: 4,
+    name: 'Caesar Salad',
+    ingredients: [ 'Romaine Lettuce', 'Croutons', 'Parmesan', 'Caesar Dressing' ],
+    cuisine: 'American',
+    prep_time: 15,
+    difficulty: 'easy',
+    price: 400
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d3'),
+    recipe_id: 5,
+    name: 'Tacos',
+    ingredients: [ 'Tortilla', 'Beef', 'Lettuce', 'Cheese', 'Tomato' ],
+    cuisine: 'Mexican',
+    prep_time: 25,
+    difficulty: 'easy',
+    price: 450
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d4'),
+    recipe_id: 6,
+    name: 'Ratatouille',
+    ingredients: [ 'Eggplant', 'Tomato', 'Zucchini', 'Bell Pepper', 'Onion' ],
+    cuisine: 'French',
+    prep_time: 40,
+    difficulty: 'medium',
+    price: 700
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],
+    cuisine: 'Thai',
+    prep_time: 30,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d6'),
+    recipe_id: 8,
+    name: 'Beef Wellington',
+    ingredients: [ 'Beef', 'Puff Pastry', 'Mushrooms', 'Egg', 'Butter' ],
+    cuisine: 'British',
+    prep_time: 90,
+    difficulty: 'hard',
+    price: 1500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d7'),
+    recipe_id: 9,
+    name: 'Falafel',
+    ingredients: [ 'Chickpeas', 'Onion', 'Garlic', 'Parsley', 'Spices' ],
+    cuisine: 'Middle Eastern',
+    prep_time: 35,
+    difficulty: 'medium',
+    price: 350
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  }
+]
+example> let res = db.receipies.find()
+
+example> res.length
+
+example> db.receipies.find()
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925cf'),
+    recipe_id: 1,
+    name: 'Spaghetti Carbonara',
+    ingredients: [ 'Spaghetti', 'Eggs', 'Pancetta', 'Parmesan', 'Black Pepper' ],
+    cuisine: 'Italian',
+    prep_time: 20,
+    difficulty: 'easy',
+    price: 500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d0'),
+    recipe_id: 2,
+    name: 'Chicken Biryani',
+    ingredients: [ 'Rice', 'Chicken', 'Yogurt', 'Spices', 'Onion' ],
+    cuisine: 'Indian',
+    prep_time: 60,
+    difficulty: 'medium',
+    price: 800
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d1'),
+    recipe_id: 3,
+    name: 'Sushi',
+    ingredients: [ 'Rice', 'Nori', 'Fish', 'Soy Sauce', 'Wasabi' ],
+    cuisine: 'Japanese',
+    prep_time: 50,
+    difficulty: 'hard',
+    price: 1200
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d2'),
+    recipe_id: 4,
+    name: 'Caesar Salad',
+    ingredients: [ 'Romaine Lettuce', 'Croutons', 'Parmesan', 'Caesar Dressing' ],
+    cuisine: 'American',
+    prep_time: 15,
+    difficulty: 'easy',
+    price: 400
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d3'),
+    recipe_id: 5,
+    name: 'Tacos',
+    ingredients: [ 'Tortilla', 'Beef', 'Lettuce', 'Cheese', 'Tomato' ],
+    cuisine: 'Mexican',
+    prep_time: 25,
+    difficulty: 'easy',
+    price: 450
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d4'),
+    recipe_id: 6,
+    name: 'Ratatouille',
+    ingredients: [ 'Eggplant', 'Tomato', 'Zucchini', 'Bell Pepper', 'Onion' ],
+    cuisine: 'French',
+    prep_time: 40,
+    difficulty: 'medium',
+    price: 700
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],
+    cuisine: 'Thai',
+    prep_time: 30,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d6'),
+    recipe_id: 8,
+    name: 'Beef Wellington',
+    ingredients: [ 'Beef', 'Puff Pastry', 'Mushrooms', 'Egg', 'Butter' ],
+    cuisine: 'British',
+    prep_time: 90,
+    difficulty: 'hard',
+    price: 1500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d7'),
+    recipe_id: 9,
+    name: 'Falafel',
+    ingredients: [ 'Chickpeas', 'Onion', 'Garlic', 'Parsley', 'Spices' ],
+    cuisine: 'Middle Eastern',
+    prep_time: 35,
+    difficulty: 'medium',
+    price: 350
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  }
+]
+example> db.receipies.find({"cuisine":"Italian"})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925cf'),
+    recipe_id: 1,
+    name: 'Spaghetti Carbonara',
+    ingredients: [ 'Spaghetti', 'Eggs', 'Pancetta', 'Parmesan', 'Black Pepper' ],
+    cuisine: 'Italian',
+    prep_time: 20,
+    difficulty: 'easy',
+    price: 500
+  }
+]
+example> db.receipies.find({prep_time:{$lte:30}})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925cf'),
+    recipe_id: 1,
+    name: 'Spaghetti Carbonara',
+    ingredients: [ 'Spaghetti', 'Eggs', 'Pancetta', 'Parmesan', 'Black Pepper' ],
+    cuisine: 'Italian',
+    prep_time: 20,
+    difficulty: 'easy',
+    price: 500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d2'),
+    recipe_id: 4,
+    name: 'Caesar Salad',
+    ingredients: [ 'Romaine Lettuce', 'Croutons', 'Parmesan', 'Caesar Dressing' ],
+    cuisine: 'American',
+    prep_time: 15,
+    difficulty: 'easy',
+    price: 400
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d3'),
+    recipe_id: 5,
+    name: 'Tacos',
+    ingredients: [ 'Tortilla', 'Beef', 'Lettuce', 'Cheese', 'Tomato' ],
+    cuisine: 'Mexican',
+    prep_time: 25,
+    difficulty: 'easy',
+    price: 450
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],
+    cuisine: 'Thai',
+    prep_time: 30,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  }
+]
+example> db.receipies.find({price:{$gt:500}})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d0'),
+    recipe_id: 2,
+    name: 'Chicken Biryani',
+    ingredients: [ 'Rice', 'Chicken', 'Yogurt', 'Spices', 'Onion' ],
+    cuisine: 'Indian',
+    prep_time: 60,
+    difficulty: 'medium',
+    price: 800
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d1'),
+    recipe_id: 3,
+    name: 'Sushi',
+    ingredients: [ 'Rice', 'Nori', 'Fish', 'Soy Sauce', 'Wasabi' ],
+    cuisine: 'Japanese',
+    prep_time: 50,
+    difficulty: 'hard',
+    price: 1200
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d4'),
+    recipe_id: 6,
+    name: 'Ratatouille',
+    ingredients: [ 'Eggplant', 'Tomato', 'Zucchini', 'Bell Pepper', 'Onion' ],
+    cuisine: 'French',
+    prep_time: 40,
+    difficulty: 'medium',
+    price: 700
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],
+    cuisine: 'Thai',
+    prep_time: 30,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d6'),
+    recipe_id: 8,
+    name: 'Beef Wellington',
+    ingredients: [ 'Beef', 'Puff Pastry', 'Mushrooms', 'Egg', 'Butter' ],
+    cuisine: 'British',
+    prep_time: 90,
+    difficulty: 'hard',
+    price: 1500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  }
+]
+example> db.receipies.find({sort:{"price",1}})
+Uncaught:
+SyntaxError: Unexpected token (1:32)
+
+> 1 | db.receipies.find({sort:{"price",1}})
+    |                                 ^
+  2 |
+
+example> db.receipies.find().sort({"price",1})
+Uncaught:
+SyntaxError: Unexpected token (1:33)
+
+> 1 | db.receipies.find().sort({"price",1})
+    |                                  ^
+  2 |
+
+example> d.receipies.find().sort({price:1})
+ReferenceError: d is not defined
+example> db.receipies.find().sort({price:1})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d7'),
+    recipe_id: 9,
+    name: 'Falafel',
+    ingredients: [ 'Chickpeas', 'Onion', 'Garlic', 'Parsley', 'Spices' ],
+    cuisine: 'Middle Eastern',
+    prep_time: 35,
+    difficulty: 'medium',
+    price: 350
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d2'),
+    recipe_id: 4,
+    name: 'Caesar Salad',
+    ingredients: [ 'Romaine Lettuce', 'Croutons', 'Parmesan', 'Caesar Dressing' ],
+    cuisine: 'American',
+    prep_time: 15,
+    difficulty: 'easy',
+    price: 400
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d3'),
+    recipe_id: 5,
+    name: 'Tacos',
+    ingredients: [ 'Tortilla', 'Beef', 'Lettuce', 'Cheese', 'Tomato' ],
+    cuisine: 'Mexican',
+    prep_time: 25,
+    difficulty: 'easy',
+    price: 450
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925cf'),
+    recipe_id: 1,
+    name: 'Spaghetti Carbonara',
+    ingredients: [ 'Spaghetti', 'Eggs', 'Pancetta', 'Parmesan', 'Black Pepper' ],
+    cuisine: 'Italian',
+    prep_time: 20,
+    difficulty: 'easy',
+    price: 500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],
+    cuisine: 'Thai',
+    prep_time: 30,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d4'),
+    recipe_id: 6,
+    name: 'Ratatouille',
+    ingredients: [ 'Eggplant', 'Tomato', 'Zucchini', 'Bell Pepper', 'Onion' ],
+    cuisine: 'French',
+    prep_time: 40,
+    difficulty: 'medium',
+    price: 700
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d0'),
+    recipe_id: 2,
+    name: 'Chicken Biryani',
+    ingredients: [ 'Rice', 'Chicken', 'Yogurt', 'Spices', 'Onion' ],
+    cuisine: 'Indian',
+    prep_time: 60,
+    difficulty: 'medium',
+    price: 800
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d1'),
+    recipe_id: 3,
+    name: 'Sushi',
+    cuisine: 'Japanese',
+    prep_time: 50,
+    difficulty: 'hard',
+    price: 1200
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d6'),
+    recipe_id: 8,
+    name: 'Beef Wellington',
+    ingredients: [ 'Beef', 'Puff Pastry', 'Mushrooms', 'Egg', 'Butter' ],
+    cuisine: 'British',
+    prep_time: 90,
+    difficulty: 'hard',
+    price: 1500
+  }
+]
+example> db.receipies.updateOne({recipe_id:2},{$set:{price:900}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+example> db.receipies.find({name:1,price:1})
+
+example> db.receipies.find({},{name:1,price:1})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925cf'),
+    name: 'Spaghetti Carbonara',
+    price: 500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d0'),
+    name: 'Chicken Biryani',
+    price: 900
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d1'),
+    name: 'Sushi',
+    price: 1200
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d2'),
+    name: 'Caesar Salad',
+    price: 400
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d3'),
+    name: 'Tacos',
+    price: 450
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d4'),
+    name: 'Ratatouille',
+    price: 700
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    name: 'Pad Thai',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d6'),
+    name: 'Beef Wellington',
+    price: 1500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d7'),
+    name: 'Falafel',
+    price: 350
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    name: 'Tom Yum Soup',
+    price: 550
+  }
+]
+example> db.receipies.find({},{name:1,price:1,_id:0})
+[
+  { name: 'Spaghetti Carbonara', price: 500 },
+  { name: 'Chicken Biryani', price: 900 },
+  { name: 'Sushi', price: 1200 },
+  { name: 'Caesar Salad', price: 400 },
+  { name: 'Tacos', price: 450 },
+  { name: 'Ratatouille', price: 700 },
+  { name: 'Pad Thai', price: 600 },
+  { name: 'Beef Wellington', price: 1500 },
+  { name: 'Falafel', price: 350 },
+  { name: 'Tom Yum Soup', price: 550 }
+]
+example> db.receipies.find({"difficulity:"medium,"price":{$lt:600}})
+Uncaught:
+SyntaxError: Unexpected token (1:33)
+
+> 1 | db.receipies.find({"difficulity:"medium,"price":{$lt:600}})
+    |                                  ^
+  2 |
+
+example> db.receipies.find({"difficulity":"medium","price":{$lt:600}})
+
+example> db.receipies.find({difficulty:"medium",price:{$lt:600}})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d7'),
+    recipe_id: 9,
+    name: 'Falafel',
+    ingredients: [ 'Chickpeas', 'Onion', 'Garlic', 'Parsley', 'Spices' ],
+    cuisine: 'Middle Eastern',
+    prep_time: 35,
+    difficulty: 'medium',
+    price: 350
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  }
+]
+example> db.receipies.find().sort({prep_time:-1})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d6'),
+    recipe_id: 8,
+    name: 'Beef Wellington',
+    ingredients: [ 'Beef', 'Puff Pastry', 'Mushrooms', 'Egg', 'Butter' ],
+    cuisine: 'British',
+    prep_time: 90,
+    difficulty: 'hard',
+    price: 1500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d0'),
+    recipe_id: 2,
+    name: 'Chicken Biryani',
+    ingredients: [ 'Rice', 'Chicken', 'Yogurt', 'Spices', 'Onion' ],
+    cuisine: 'Indian',
+    prep_time: 60,
+    difficulty: 'medium',
+    price: 900
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d1'),
+    recipe_id: 3,
+    name: 'Sushi',
+    ingredients: [ 'Rice', 'Nori', 'Fish', 'Soy Sauce', 'Wasabi' ],
+    cuisine: 'Japanese',
+    prep_time: 50,
+    difficulty: 'hard',
+    price: 1200
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d4'),
+    recipe_id: 6,
+    name: 'Ratatouille',
+    ingredients: [ 'Eggplant', 'Tomato', 'Zucchini', 'Bell Pepper', 'Onion' ],
+    cuisine: 'French',
+    prep_time: 40,
+    difficulty: 'medium',
+    price: 700
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d7'),
+    recipe_id: 9,
+    name: 'Falafel',
+    ingredients: [ 'Chickpeas', 'Onion', 'Garlic', 'Parsley', 'Spices' ],
+    cuisine: 'Middle Eastern',
+    prep_time: 35,
+    difficulty: 'medium',
+    price: 350
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],        
+    cuisine: 'Thai',
+    prep_time: 30,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d3'),
+    recipe_id: 5,
+    name: 'Tacos',
+    ingredients: [ 'Tortilla', 'Beef', 'Lettuce', 'Cheese', 'Tomato' ],
+    cuisine: 'Mexican',
+    prep_time: 25,
+    difficulty: 'easy',
+    price: 450
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925cf'),
+    recipe_id: 1,
+    name: 'Spaghetti Carbonara',
+    ingredients: [ 'Spaghetti', 'Eggs', 'Pancetta', 'Parmesan', 'Black Pepper' ],       
+    cuisine: 'Italian',
+    prep_time: 20,
+    difficulty: 'easy',
+    price: 500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d2'),
+    recipe_id: 4,
+    name: 'Caesar Salad',
+    ingredients: [ 'Romaine Lettuce', 'Croutons', 'Parmesan', 'Caesar Dressing' ],      
+    cuisine: 'American',
+    prep_time: 15,
+    difficulty: 'easy',
+    price: 400
+  }
+]
+example> db.receipies.insertOne({"receipe_id":11,"name":"Chocolate Cake","ingredients":["Flour","Sugar","Cocoa Powder","Eggs","Butter"],"cuisine":"American","prep_time":50,"difficulty":"medium","price":750})
+{
+  acknowledged: true,
+  insertedId: ObjectId('688dad9985ee86de6eeec4a9')
+}
+example> db.receipies.deleteOne({recipe_id:4})
+{ acknowledged: true, deletedCount: 1 }
+example> db.receipies.find({cuisine:{$or:["Japanese","Thai"]}})
+MongoServerError[BadValue]: unknown operator: $or
+example> db.receipies.find({cuisine:{$in:["Japanese","Thai"]}})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d1'),
+    recipe_id: 3,
+    name: 'Sushi',
+    ingredients: [ 'Rice', 'Nori', 'Fish', 'Soy Sauce', 'Wasabi' ],
+    cuisine: 'Japanese',
+    prep_time: 50,
+    difficulty: 'hard',
+    price: 1200
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],        
+    cuisine: 'Thai',
+    prep_time: 30,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  }
+]
+example> db.receipies.find({ingredients:{$in:["Egg"]}})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],        
+    cuisine: 'Thai',
+    prep_time: 30,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d6'),
+    recipe_id: 8,
+    name: 'Beef Wellington',
+    ingredients: [ 'Beef', 'Puff Pastry', 'Mushrooms', 'Egg', 'Butter' ],
+    cuisine: 'British',
+    prep_time: 90,
+    difficulty: 'hard',
+    price: 1500
+  }
+]
+example> db.receipies.updateOne({recipe_id:7},{$set:{prep_time:35}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+example> db.receipies.deleteMany({price:{$gt:1000}})
+{ acknowledged: true, deletedCount: 2 }
+example> db.receipies.find().skip(0).limit(3)
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925cf'),
+    recipe_id: 1,
+    name: 'Spaghetti Carbonara',
+    ingredients: [ 'Spaghetti', 'Eggs', 'Pancetta', 'Parmesan', 'Black Pepper' ],       
+    cuisine: 'Italian',
+    prep_time: 20,
+    difficulty: 'easy',
+    price: 500
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d0'),
+    recipe_id: 2,
+    name: 'Chicken Biryani',
+    ingredients: [ 'Rice', 'Chicken', 'Yogurt', 'Spices', 'Onion' ],
+    cuisine: 'Indian',
+    prep_time: 60,
+    difficulty: 'medium',
+    price: 900
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d3'),
+    recipe_id: 5,
+    name: 'Tacos',
+    ingredients: [ 'Tortilla', 'Beef', 'Lettuce', 'Cheese', 'Tomato' ],
+    cuisine: 'Mexican',
+    prep_time: 25,
+    difficulty: 'easy',
+    price: 450
+  }
+]
+example> db.receipies.find().skip(2)
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d3'),
+    recipe_id: 5,
+    name: 'Tacos',
+    ingredients: [ 'Tortilla', 'Beef', 'Lettuce', 'Cheese', 'Tomato' ],
+    cuisine: 'Mexican',
+    prep_time: 25,
+    difficulty: 'easy',
+    price: 450
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d4'),
+    recipe_id: 6,
+    name: 'Ratatouille',
+    ingredients: [ 'Eggplant', 'Tomato', 'Zucchini', 'Bell Pepper', 'Onion' ],
+    cuisine: 'French',
+    prep_time: 40,
+    difficulty: 'medium',
+    price: 700
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],        
+    cuisine: 'Thai',
+    prep_time: 35,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d7'),
+    recipe_id: 9,
+    name: 'Falafel',
+    ingredients: [ 'Chickpeas', 'Onion', 'Garlic', 'Parsley', 'Spices' ],
+    cuisine: 'Middle Eastern',
+    prep_time: 35,
+    difficulty: 'medium',
+    price: 350
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  },
+  {
+    _id: ObjectId('688dad9985ee86de6eeec4a9'),
+    receipe_id: 11,
+    name: 'Chocolate Cake',
+    ingredients: [ 'Flour', 'Sugar', 'Cocoa Powder', 'Eggs', 'Butter' ],
+    cuisine: 'American',
+    prep_time: 50,
+    difficulty: 'medium',
+    price: 750
+  }
+]
+example> db.receipies.find({"cuisine":"Thai"}).sort({price:-1})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d5'),
+    recipe_id: 7,
+    name: 'Pad Thai',
+    ingredients: [ 'Rice Noodles', 'Shrimp', 'Peanuts', 'Bean Sprouts', 'Egg' ],        
+    cuisine: 'Thai',
+    prep_time: 35,
+    difficulty: 'medium',
+    price: 600
+  },
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d8'),
+    recipe_id: 10,
+    name: 'Tom Yum Soup',
+    ingredients: [ 'Shrimp', 'Lemongrass', 'Mushrooms', 'Lime', 'Chili' ],
+    cuisine: 'Thai',
+    prep_time: 25,
+    difficulty: 'medium',
+    price: 550
+  }
+]
+example> db.receipies.insertOne({"recipe_id":12,"name":"Hummus","ingredients":["Chickpeas","Thaini","Garlic"],"cuisine":"Indian","prep_time":77,"difficulty":"easy"."price":7777
+777})
+Uncaught:
+SyntaxError: Unexpected token (1:155)
+
+> 1 | db.receipies.insertOne({"recipe_id":12,"name":"Hummus","ingredients":["Chickpeas","Thaini","Garlic"],"cuisine":"Indian","prep_time":77,"difficulty":"easy"."price":7777777})
+    |                                                                                   
+                                                                         ^
+  2 |
+
+example> db.receipies.insertOne({"recipe_id":12,"name":"Hummus","ingredients":["Chickpeas","Thaini","Garlic"],"cuisine":"Indian","prep_time":77,"difficulty":"easy","price":7777777})
+{
+  acknowledged: true,
+  insertedId: ObjectId('688db0b185ee86de6eeec4aa')
+}
+example> db.receipies.find({difficulty:"easy"}).count()
+3
+example> db.receipies.find({prep_time:{$gt:40}})
+[
+  {
+    _id: ObjectId('688daa0bcdd7439603f925d0'),
+    recipe_id: 2,
+    name: 'Chicken Biryani',
+    ingredients: [ 'Rice', 'Chicken', 'Yogurt', 'Spices', 'Onion' ],
+    cuisine: 'Indian',
+    prep_time: 60,
+    difficulty: 'medium',
+    price: 900
+  },
+  {
+    _id: ObjectId('688dad9985ee86de6eeec4a9'),
+    receipe_id: 11,
+    name: 'Chocolate Cake',
+    ingredients: [ 'Flour', 'Sugar', 'Cocoa Powder', 'Eggs', 'Butter' ],
+    cuisine: 'American',
+    prep_time: 50,
+    difficulty: 'medium',
+    price: 750
+  },
+  {
+    _id: ObjectId('688db0b185ee86de6eeec4aa'),
+    recipe_id: 12,
+    name: 'Hummus',
+    ingredients: [ 'Chickpeas', 'Thaini', 'Garlic' ],
+    cuisine: 'Indian',
+    prep_time: 77,
+    difficulty: 'easy',
+    price: 7777777
+  }
+]
+example>
