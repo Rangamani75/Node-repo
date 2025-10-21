@@ -1,0 +1,923 @@
+customersandOrder>
+
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "customerId", foreignField: "_id", as: "customerDetails" } }, { $unwind: "$customerDetails" }])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    customerDetails: { _id: 'C1003', name: 'Charlie', city: 'Chicago' }
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    customerDetails: { _id: 'C1004', name: 'David', city: 'Houston' }
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    customerDetails: { _id: 'C1005', name: 'Eve', city: 'Seattle' }
+  }
+]
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "customerId", foreignField: "_id", as: "customerDetails" } }])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    customerDetails: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    customerDetails: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    customerDetails: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    customerDetails: [ { _id: 'C1003', name: 'Charlie', city: 'Chicago' } ]
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    customerDetails: [ { _id: 'C1004', name: 'David', city: 'Houston' } ]
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    customerDetails: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    customerDetails: [ { _id: 'C1005', name: 'Eve', city: 'Seattle' } ]
+  }
+]
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "customerId", foreignField: "_id", as: "customerDetails" } }, { $unwind: "$customerDetails" }])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    customerDetails: { _id: 'C1003', name: 'Charlie', city: 'Chicago' }
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    customerDetails: { _id: 'C1004', name: 'David', city: 'Houston' }
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    customerDetails: { _id: 'C1005', name: 'Eve', city: 'Seattle' }
+  }
+]
+customersandOrder> db.customers.aggregate([{$group:{_id:"$customerId",AvgAmount:{$avg:"$amount"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:78)
+
+> 1 | db.customers.aggregate([{$group:{_id:"$customerId",AvgAmount:{$avg:"$amount"}}])
+    |                                                                               ^
+  2 |
+
+customersandOrder> db.customers.aggregate([{$group:{_id:"$customerId",AvgAmount:{$avg:"$amount"}}}]) 
+[ { _id: null, AvgAmount: null } ]
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder> db.orders.aggregate([{$lookup:{
+... from:"customers",localField:"_id",foreignField:"customerId",as:"orders"}}])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    orders: []
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    orders: []
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    orders: []
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    orders: []
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    orders: []
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    orders: []
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    orders: []
+  }
+]
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "_id", foreignField: "customerId", as: "orders" } },{$unwind:"$orders"])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:135)
+
+> 1 | db.orders.aggregate([{ $lookup: { from: "customers", localField: "_id", foreignField: "customerId", as: "orders" } },{$unwind:"$orders"])
+    |                                                                                                
+                                        ^
+  2 |
+
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "_id", foreignField: "customerId", as: "orders" } },{$unwind:"$orders"}])
+
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"cus
+tomerId",as:"orders"}}])
+[
+  {
+    _id: 'C1001',
+    name: 'Alice',
+    city: 'New York',
+    orders: [
+      { _id: 1, customerId: 'C1001', amount: 500, product: 'Laptop' },
+      {
+        _id: 3,
+        customerId: 'C1001',
+        amount: 300,
+        product: 'Headphones'
+      }
+    ]
+  },
+  {
+    _id: 'C1002',
+    name: 'Bob',
+    city: 'Los Angeles',
+    orders: [
+      { _id: 2, customerId: 'C1002', amount: 1200, product: 'Phone' },
+      { _id: 6, customerId: 'C1002', amount: 800, product: 'Tablet' }
+    ]
+  },
+  {
+    _id: 'C1003',
+    name: 'Charlie',
+    city: 'Chicago',
+    orders: [
+      { _id: 4, customerId: 'C1003', amount: 700, product: 'Monitor' }
+    ]
+  },
+  {
+    _id: 'C1004',
+    name: 'David',
+    city: 'Houston',
+    orders: [
+      { _id: 5, customerId: 'C1004', amount: 400, product: 'Keyboard' }
+    ]
+  },
+  {
+    _id: 'C1005',
+    name: 'Eve',
+    city: 'Seattle',
+    orders: [
+      {
+        _id: 7,
+        customerId: 'C1005',
+        amount: 900,
+        product: 'Smartwatch'
+      }
+    ]
+  }
+]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"}])
+[
+  {
+    _id: 'C1001',
+    name: 'Alice',
+    city: 'New York',
+    orders: { _id: 1, customerId: 'C1001', amount: 500, product: 'Laptop' }
+  },
+  {
+    _id: 'C1001',
+    name: 'Alice',
+    city: 'New York',
+    orders: { _id: 3, customerId: 'C1001', amount: 300, product: 'Headphones' }
+  },
+  {
+    _id: 'C1002',
+    name: 'Bob',
+    city: 'Los Angeles',
+    orders: { _id: 2, customerId: 'C1002', amount: 1200, product: 'Phone' }
+  },
+  {
+    _id: 'C1002',
+    name: 'Bob',
+    city: 'Los Angeles',
+    orders: { _id: 6, customerId: 'C1002', amount: 800, product: 'Tablet' }
+  },
+  {
+    _id: 'C1003',
+    name: 'Charlie',
+    city: 'Chicago',
+    orders: { _id: 4, customerId: 'C1003', amount: 700, product: 'Monitor' }
+  },
+  {
+    _id: 'C1004',
+    name: 'David',
+    city: 'Houston',
+    orders: { _id: 5, customerId: 'C1004', amount: 400, product: 'Keyboard' }
+  },
+  {
+    _id: 'C1005',
+    name: 'Eve',
+    city: 'Seattle',
+    orders: { _id: 7, customerId: 'C1005', amount: 900, product: 'Smartwatch' }
+  }
+]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"},{$group:{_id:"_id",totalAmount:{$sum:"$orders.amount"}}}])
+
+[ { _id: '_id', totalAmount: 4800 } ]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"},{$group:{_id:"name",totalAmount:{$sum:"$orders.amount"}}}])
+[ { _id: 'name', totalAmount: 4800 } ]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"},{$group:{_id:"name",totalAmount:{$avg:"$orders.amount"}}}])
+[ { _id: 'name', totalAmount: 685.7142857142857 } ]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$group:{_id:"name",totalAmount:{$avg:"$orders.amount"}}}])
+[ { _id: 'name', totalAmount: null } ]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"},{$group:{_id:"name",totalAmount:{$avg:"$orders.amount"}}}])
+[ { _id: 'name', totalAmount: 685.7142857142857 } ]
+customersandOrder>                                                                                   
+                                                                                                     
+customersandOrder> db.orders.aggregate([{$group:{_id:"$customerId",avgAmount:{$avg:"$amount"}}}])
+[
+  { _id: 'C1002', avgAmount: 1000 },
+  { _id: 'C1003', avgAmount: 700 },
+  { _id: 'C1001', avgAmount: 400 },
+  { _id: 'C1004', avgAmount: 400 },
+  { _id: 'C1005', avgAmount: 900 }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}}])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    users: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    users: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    users: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    users: [ { _id: 'C1003', name: 'Charlie', city: 'Chicago' } ]
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    users: [ { _id: 'C1004', name: 'David', city: 'Houston' } ]
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    users: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    users: [ { _id: 'C1005', name: 'Eve', city: 'Seattle' } ]
+  }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"}])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    users: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    users: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    users: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    users: { _id: 'C1003', name: 'Charlie', city: 'Chicago' }
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    users: { _id: 'C1004', name: 'David', city: 'Houston' }
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    users: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    users: { _id: 'C1005', name: 'Eve', city: 'Seattle' }
+  }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product"}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:157)
+
+> 1 | db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product"}])
+    |                                                                                                
+                                                              ^
+  2 |
+
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{prold:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product"}}])
+[
+  { _id: 1, productName: 'Laptop' },
+  { _id: 2, productName: 'Phone' },
+[
+  { _id: 1, productName: 'Laptop' },
+  { _id: 2, productName: 'Phone' },
+  { _id: 1, productName: 'Laptop' },
+  { _id: 2, productName: 'Phone' },
+  { _id: 2, productName: 'Phone' },
+  { _id: 3, productName: 'Headphones' },
+  { _id: 4, productName: 'Monitor' },
+  { _id: 5, productName: 'Keyboard' },
+  { _id: 5, productName: 'Keyboard' },
+  { _id: 6, productName: 'Tablet' },
+  { _id: 7, productName: 'Smartwatch' }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{pro  { _id: 6, productName: 'Tablet' },
+  { _id: 7, productName: 'Smartwatch' }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product",orderedBy:"$users.name"}}])
+[
+  { _id: 7, productName: 'Smartwatch' }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product",orderedBy:"$users.name"}}])
+[
+  { _id: 1, productName: 'Laptop', orderedBy: 'Alice' },
+  { _id: 2, productName: 'Phone', orderedBy: 'Bob' },
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product",orderedBy:"$users.name"}}])
+[
+  { _id: 1, productName: 'Laptop', orderedBy: 'Alice' },
+  { _id: 2, productName: 'Phone', orderedBy: 'Bob' },
+  { _id: 3, productName: 'Headphones', orderedBy: 'Alice' },
+ductName:"$product",orderedBy:"$users.name"}}])
+[
+  { _id: 1, productName: 'Laptop', orderedBy: 'Alice' },
+  { _id: 2, productName: 'Phone', orderedBy: 'Bob' },
+  { _id: 3, productName: 'Headphones', orderedBy: 'Alice' },
+  { _id: 4, productName: 'Monitor', orderedBy: 'Charlie' },
+  { _id: 1, productName: 'Laptop', orderedBy: 'Alice' },
+  { _id: 2, productName: 'Phone', orderedBy: 'Bob' },
+  { _id: 3, productName: 'Headphones', orderedBy: 'Alice' },
+  { _id: 4, productName: 'Monitor', orderedBy: 'Charlie' },
+  { _id: 3, productName: 'Headphones', orderedBy: 'Alice' },
+  { _id: 4, productName: 'Monitor', orderedBy: 'Charlie' },
+  { _id: 5, productName: 'Keyboard', orderedBy: 'David' },
+  { _id: 6, productName: 'Tablet', orderedBy: 'Bob' },
+  { _id: 7, productName: 'Smartwatch', orderedBy: 'Eve' }
+  { _id: 4, productName: 'Monitor', orderedBy: 'Charlie' },
+  { _id: 5, productName: 'Keyboard', orderedBy: 'David' },
+  { _id: 6, productName: 'Tablet', orderedBy: 'Bob' },
+  { _id: 7, productName: 'Smartwatch', orderedBy: 'Eve' }
+]
+  { _id: 5, productName: 'Keyboard', orderedBy: 'David' },
+  { _id: 6, productName: 'Tablet', orderedBy: 'Bob' },
+  { _id: 7, productName: 'Smartwatch', orderedBy: 'Eve' }
+]
+  { _id: 7, productName: 'Smartwatch', orderedBy: 'Eve' }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{_id]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{_id:0,productName:"$product",orderedBy:"$users.name"}}])
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{_id:0,productName:"$product",orderedBy:"$users.name"}}])
+[
+"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{_id:0,productName:"$product",orderedBy:"$users.name"}}])
+[
+:0,productName:"$product",orderedBy:"$users.name"}}])
+[
+[
+  { productName: 'Laptop', orderedBy: 'Alice' },
+  { productName: 'Laptop', orderedBy: 'Alice' },
+  { productName: 'Phone', orderedBy: 'Bob' },
+  { productName: 'Headphones', orderedBy: 'Alice' },
+  { productName: 'Monitor', orderedBy: 'Charlie' },
+  { productName: 'Keyboard', orderedBy: 'David' },
+  { productName: 'Tablet', orderedBy: 'Bob' },
+  { productName: 'Smartwatch', orderedBy: 'Eve' }
+]
+customersandOrder>
+(To exit, press Ctrl+C again or Ctrl+D or type .exit)
+customersandOrder> exit
+PS C:\Users\User\Downloads\MasaDown\MSI Files for assignment\GITFILES\Unit5\Intro_to_Node> git add customersandOrders.txt
+PS C:\Users\User\Downloads\MasaDown\MSI Files for assignment\GITFILES\Unit5\Intro_to_Node> git commit -m"commiting the code for the this"
+[main ae66734] commiting the code for the this
+ 1 file changed, 742 insertions(+)
+ create mode 100644 Intro_to_Node/customersandOrders.txt
+PS C:\Users\User\Downloads\MasaDown\MSI Files for assignment\GITFILES\Unit5\Intro_to_Node> git push
+Enumerating objects: 6, done.
+Counting objects: 100% (6/6), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (4/4), 2.54 KiB | 2.54 MiB/s, done.
+Total 4 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/Mahesh7s/Unit5
+   559d5c7..ae66734  main -> main
+PS C:\Users\User\Downloads\MasaDown\MSI Files for assignment\GITFILES\Unit5\Intro_to_Node> mongosh
+Current Mongosh Log ID: 6898d05b59728e933eeec4a8
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.6
+Using MongoDB:          8.0.12
+Using Mongosh:          2.5.6
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-08-06T09:30:40.923+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+Aggregations         40.00 KiB
+App                 180.00 KiB
+BookRental          180.00 KiB
+DataAnalysis         40.00 KiB
+Enrollment          216.00 KiB
+ToDo                 72.00 KiB
+admin                40.00 KiB
+bookLibrary           8.00 KiB
+config              108.00 KiB
+customersandOrder    80.00 KiB
+doctorConsultation  216.00 KiB
+example             192.00 KiB
+library-system      180.00 KiB
+local                72.00 KiB
+task                108.00 KiB
+userComplex          72.00 KiB
+userProfile         108.00 KiB
+vehicle_db           12.00 KiB
+test> use Dataanalysis
+switched to db Dataanalysis
+Dataanalysis> db.orders.aggregate([{$group:{_id:"$productName"}},{$sort:{"quantity":-1}}])
+
+Dataanalysis> db.orders.aggregate([{$sort:{"$max":-1}}])
+MongoServerError[Location16410]: FieldPath field names may not start with '$'. Consider using $getField or $setField.
+Dataanalysis> db.orders.find().sort({"$max":-1})
+MongoServerError[Location16410]: FieldPath field names may not start with '$'. Consider using $getField or $setField.
+Dataanalysis> db.orders.find().sort({max:-1})
+
+Dataanalysis> db.orders.find().sort({"$quantity":-1})
+MongoServerError[Location16410]: FieldPath field names may not start with '$'. Consider using $getField or $setField.
+Dataanalysis> db.orders.find().sort({quantity:-1})
+
+Dataanalysis> db.orders.find({status:{$ne:"cancelled"}}).sort({quantity:-1})
+
+Dataanalysis> db.orders.aggregate([{$match:{status:{$ne:"cancelled"}}},{$group:{_id:"$productName",to
+talQuantity:{$sum:"$quantity"}}},{$sort:{totalQuantity:-1}}])
+
+Dataanalysis> use DataAnalysis
+switched to db DataAnalysis
+DataAnalysis> db.orders.aggregate([{$match:{status:{$ne:"cancelled"}}},{$group:{_id:"$productName",totalQuantity:{$sum:"$quantity"}}},{$sort:{totalQuantity:-1}}])
+[
+  { _id: 'T-shirt', totalQuantity: 14 },
+  { _id: 'Shoes', totalQuantity: 5 },
+  { _id: 'iPhone 14', totalQuantity: 5 },
+  { _id: 'AirPods', totalQuantity: 3 },
+  { _id: 'Microwave', totalQuantity: 1 },
+  { _id: 'Coffee Maker', totalQuantity: 1 },
+  { _id: 'Blender', totalQuantity: 1 }
+]
+DataAnalysis> db.orders.find({status:{$ne:"cancelled"}}).sort({quantity:-1})                         
+[
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db13'),
+    username: 'bob',
+    productName: 'T-shirt',
+    category: 'Clothing',
+    quantity: 5,
+    totalPrice: 100,
+    orderDate: '2024-11-15T13:45:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db1a'),
+    username: 'isla',
+    productName: 'T-shirt',
+    category: 'Clothing',
+    quantity: 4,
+    totalPrice: 80,
+    orderDate: '2025-03-01T09:30:00Z',
+    status: 'Shipped'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db19'),
+    username: 'harry',
+    productName: 'Shoes',
+    category: 'Clothing',
+    quantity: 3,
+    totalPrice: 210,
+    orderDate: '2025-02-10T17:20:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db20'),
+    username: 'olivia',
+    productName: 'T-shirt',
+    category: 'Clothing',
+    quantity: 3,
+    totalPrice: 60,
+    orderDate: '2025-04-28T20:45:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db12'),
+    username: 'alice',
+    productName: 'iPhone 14',
+    category: 'Electronics',
+    quantity: 2,
+    totalPrice: 2000,
+    orderDate: '2024-11-12T10:30:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db15'),
+    username: 'daisy',
+    productName: 'T-shirt',
+    category: 'Clothing',
+    quantity: 2,
+    totalPrice: 40,
+    orderDate: '2024-12-10T14:00:00Z',
+    status: 'Pending'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db1b'),
+    username: 'jake',
+    productName: 'AirPods',
+    category: 'Electronics',
+    quantity: 2,
+    totalPrice: 300,
+    orderDate: '2025-03-12T14:45:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db1e'),
+    username: 'mona',
+    productName: 'Shoes',
+    category: 'Clothing',
+    quantity: 2,
+    totalPrice: 140,
+    orderDate: '2025-04-10T15:25:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db14'),
+    username: 'charlie',
+    productName: 'iPhone 14',
+    category: 'Electronics',
+    quantity: 1,
+    totalPrice: 1000,
+    orderDate: '2024-12-01T09:00:00Z',
+    status: 'Cancelled'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db16'),
+    username: 'edward',
+    productName: 'Coffee Maker',
+    category: 'Home Appliances',
+    quantity: 1,
+    totalPrice: 150,
+    orderDate: '2025-01-05T16:30:00Z',
+    status: 'Shipped'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db17'),
+    username: 'fatima',
+    productName: 'Blender',
+    category: 'Home Appliances',
+    quantity: 1,
+    totalPrice: 120,
+    orderDate: '2025-01-15T12:10:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db18'),
+    username: 'george',
+    productName: 'iPhone 14',
+    category: 'Electronics',
+    quantity: 1,
+    totalPrice: 1000,
+    orderDate: '2025-02-01T10:00:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db1c'),
+    username: 'keira',
+    productName: 'Microwave',
+    category: 'Home Appliances',
+    quantity: 1,
+    totalPrice: 220,
+    orderDate: '2025-03-25T11:00:00Z',
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db1d'),
+    username: 'liam',
+    productName: 'AirPods',
+    category: 'Electronics',
+    quantity: 1,
+    totalPrice: 150,
+    orderDate: '2025-04-01T08:15:00Z',
+    status: 'Cancelled'
+  },
+  {
+    _id: ObjectId('6898cfc2a0f6935a8454db1f'),
+    username: 'nathan',
+    productName: 'iPhone 14',
+    category: 'Electronics',
+    quantity: 1,
+    totalPrice: 1000,
+    orderDate: '2025-04-20T18:10:00Z',
+    status: 'Delivered'
+  }
+]
+DataAnalysis> db.orders.aggregate([{$match:{status:{$ne:"cancelled"}}},{$group:{_id:"$productName",totalQuantity:{$sum:"$quantity"}}},{$sort:{totalQuantity:-1}},{$limit:3}])
+[
+  { _id: 'T-shirt', totalQuantity: 14 },
+  { _id: 'iPhone 14', totalQuantity: 5 },
+  { _id: 'Shoes', totalQuantity: 5 }
+]
+DataAnalysis> db.orders.aggregate([{$group:{_id:"category",totalRevenue:{$sum:"$totalPrice"}}}])     
+[ { _id: 'category', totalRevenue: 6570 } ]
+DataAnalysis> db.orders.aggregate([{$group:{_id:"$category",totalRevenue:{$sum:"$totalPrice"}}}])    
+[
+  { _id: 'Clothing', totalRevenue: 630 },
+  { _id: 'Electronics', totalRevenue: 5450 },
+  { _id: 'Home Appliances', totalRevenue: 490 }
+]
+DataAnalysis> db.orders.aggregate([{$group:{_id:null,AverageTotalPRice:{$avg:"$totalPrice"}}}])
+[ { _id: null, AverageTotalPRice: 438 } ]
+DataAnalysis> db.orders.aggregate([{$group:{_id:{$month:{$todate:"orderDate"}}},orders:{$sum:1}}])
+MongoServerError[Location40323]: A pipeline stage specification object must contain exactly one field.
+DataAnalysis> db.orders.aggregate([{$group:{_id:{$month:{$todate:"orderDate"}},orders:{$sum:1}}])    
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:81)
+
+> 1 | db.orders.aggregate([{$group:{_id:{$month:{$todate:"orderDate"}},orders:{$sum:1}}])
+    |                                                                                  ^
+  2 |
+
+DataAnalysis> db.orders.aggregate([{$group:{_id:{$month:{$todate:"orderDate"}},orders:{$sum:1}}}])   
+MongoServerError[InvalidPipelineOperator]: Unrecognized expression '$todate'
+DataAnalysis> db.orders.aggregate([{$group:{_id:{$month:{$"todate":"orderDate"}},orders:{$sum:1}}}]) 
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:44)
+
+> 1 | db.orders.aggregate([{$group:{_id:{$month:{$"todate":"orderDate"}},orders:{$sum:1}}}])
+    |                                             ^
+  2 |
+
+DataAnalysis> db.orders.aggregate([{$group:{_id:{$month:{"$todate":"orderDate"}},orders:{$sum:1}}}]) 
+MongoServerError[InvalidPipelineOperator]: Unrecognized expression '$todate'
+DataAnalysis> db.orders.aggregate([{$group:{_id:{month:{$month:{$toDate":"$orderDate"}}},orders:{$sum:1}}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:57)
+
+> 1 | db.orders.aggregate([{$group:{_id:{month:{$month:{$toDate":"$orderDate"}}},orders:{$sum:1}}}]) 
+    |                                                          ^
+  2 |
+
+DataAnalysis> db.orders.aggregate([{$group:{_id:{month:{$month:{$toDate:"$orderDate"}}},orders:{$sum:1}}}])
+[
+  { _id: { month: 12 }, orders: 2 },
+  { _id: { month: 1 }, orders: 2 },
+  { _id: { month: 3 }, orders: 3 },
+  { _id: { month: 4 }, orders: 4 },
+  { _id: { month: 2 }, orders: 2 },
+  { _id: { month: 11 }, orders: 2 }
+]
+DataAnalysis> db.orders.aggregate([{
+... $group:{                                                                                         
+... _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},
+{
+Uncaught:
+SyntaxError: Unexpected token, expected "," (3:92)
+
+  1 | db.orders.aggregate([{
+  2 | $group:{
+> 3 | _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{
+    |                                                                                             ^  
+  4 |
+
+DataAnalysis> db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}}
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:124)
+
+> 1 | db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}}
+    |                                                                                                
+                             ^
+  2 |
+
+DataAnalysis> db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:124)
+
+> 1 | db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}
+    |                                                                                                
+                             ^
+  2 |
+
+DataAnalysis> db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{$project:{
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:124)
+
+> 1 | db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{$project:{
+    |                                                                                                
+                             ^
+  2 |
+
+DataAnalysis> db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{$project:{_id:0,percentageCancelled:{
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:124)
+
+> 1 | db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{$project:{_id:0,percentageCancelled:{
+    |                                                                                                
+                             ^
+  2 |
+
+DataAnalysis> db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{$project:{_id:0,percentageCancelled:{$multiply:[{$divide:[
+"$canceledOrders","$taotalOrders"]},100]}}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:124)
+
+> 1 | db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{$project:{_id:0,percentageCancelled:{$multiply:[{$divide:["$canceledOrders","$taotalOrders"]},100]}}}])
+    |                                                                                                
+                             ^
+  2 |
+
+DataAnalysis> db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{$project:{_id:0,percentageCancelled:{$multiply:[{$divide:["$canceledOrders","$totalOrders"]},100]}}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:124)
+
+> 1 | db.orders.aggregate([{ $group:{ _id:null,totalOrders:{$sum:1},canceledOrders:{$sum:{$cond:[{$eq:["$status","cancelled"]},1,0}}}},{$project:{_id:0,percentageCancelled:{$multiply:[{$divide:["$canceledOrders","$totalOrders"]},100]}}}])
+    |                                                                                                
+                             ^
+  2 |
+
+DataAnalysis>
+
+DataAnalysis>
+(To exit, press Ctrl+C again or Ctrl+D or type .exit)
+DataAnalysis>
+PS C:\Users\User\Downloads\MasaDown\MSI Files for assignment\GITFILES\Unit5\Intro_to_Node>
