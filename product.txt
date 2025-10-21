@@ -1,0 +1,423 @@
+
+PS C:\Users\User\Downloads\MasaDown\MSI Files for assignment\GITFILES\Unit5\Intro_to_Node\Basics2\DoctorConsultation> mongosh
+Current Mongosh Log ID: 68988a76a7c012ea9beec4a8
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.6      
+Using MongoDB:          8.0.12
+Using Mongosh:          2.5.6
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting      
+   2025-08-06T09:30:40.923+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+Aggregations          8.00 KiB
+App                 180.00 KiB
+BookRental          180.00 KiB
+Enrollment          216.00 KiB
+ToDo                 72.00 KiB
+admin                40.00 KiB
+bookLibrary           8.00 KiB
+config               72.00 KiB
+doctorConsultation  216.00 KiB
+example             192.00 KiB
+library-system      180.00 KiB
+local                72.00 KiB
+one2one             180.00 KiB
+task                108.00 KiB
+userComplex          72.00 KiB
+userProfile         108.00 KiB
+vehicle_db           12.00 KiB
+test> use Aggregations
+switched to db Aggregations
+Aggregations>
+
+Aggregations> db.sales.aggregate([{$group:{_id:"$category"}}])   
+[ { _id: 'Electronics' }, { _id: 'Fashion' } ]
+Aggregations> db.sales.aggregate([{$group:{_id:"$category",totalSum:{$sum:"$amout"}}}])
+[
+  { _id: 'Electronics', totalSum: 0 },
+  { _id: 'Fashion', totalSum: 0 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$category",totalSum:{$sum:"$amount"}}}])
+[
+  { _id: 'Electronics', totalSum: 3300 },
+  { _id: 'Fashion', totalSum: 800 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$category",totalSum:{$sum:"$amount"}}}])
+[
+  { _id: 'Electronics', totalSum: 3300 },
+  { _id: 'Fashion', totalSum: 800 }
+]
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion"}}
+])
+[
+  {
+    _id: ObjectId('68988a5da0f6935a8454db03'),
+    saleId: 3,
+    product: 'Shoes',
+    category: 'Fashion',
+    amount: 200,
+    date: '2024-01-20',
+    region: 'North'
+  },
+  {
+    _id: ObjectId('68988a5da0f6935a8454db05'),
+    saleId: 5,
+    product: 'T-shirt',
+    category: 'Fashion',
+    amount: 50,
+    date: '2024-02-25',
+    region: 'East'
+  },
+  {
+    _id: ObjectId('68988a5da0f6935a8454db07'),
+    saleId: 7,
+  {
+    _id: ObjectId('68988a5da0f6935a8454db09'),
+    saleId: 9,
+    product: 'Shoes',
+    category: 'Fashion',
+    amount: 250,
+    date: '2024-04-18',
+    region: 'South'
+  }
+]
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion","amount:{$gt:{500}}])   
+Uncaught:
+SyntaxError: Unterminated string constant. (1:50)
+
+> 1 | db.sales.aggregate([{$match:{"category":"Fashion","amount:{$gt:{500}}])
+    |                                                   ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion},{"amount:{$gt:{500}}}]) 
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:52)
+
+> 1 | db.sales.aggregate([{$match:{"category":"Fashion},{"amount:{$gt:{500}}}])
+    |                                                     ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion}{"amount:{$gt:{500}}}])  
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:51)
+
+> 1 | db.sales.aggregate([{$match:{"category":"Fashion}{"amount:{$gt:{500}}}])
+    |                                                    ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion}{"amount":{$gt:{500}}}]) 
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:51)
+
+> 1 | db.sales.aggregate([{$match:{"category":"Fashion}{"amount":{$gt:{500}}}])
+    |                                                    ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion}{"amount":"$gt:{500}"}]) 
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:51)
+
+> 1 | db.sales.aggregate([{$match:{"category":"Fashion}{"amount":"$gt:{500}"}])
+    |                                                    ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion","amount":{$gte:500}}}])
+
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion","amount":{$lte:500}}}]) 
+[
+  {
+    _id: ObjectId('68988a5da0f6935a8454db03'),
+    saleId: 3,
+    product: 'Shoes',
+    category: 'Fashion',
+    amount: 200,
+    date: '2024-01-20',
+    region: 'North'
+  },
+  {
+    _id: ObjectId('68988a5da0f6935a8454db05'),
+    saleId: 5,
+    product: 'T-shirt',
+    category: 'Fashion',
+    amount: 50,
+    date: '2024-02-25',
+    region: 'East'
+  },
+  {
+    _id: ObjectId('68988a5da0f6935a8454db07'),
+    saleId: 7,
+    product: 'Watch',
+    category: 'Fashion',
+    amount: 300,
+    date: '2024-03-15',
+    region: 'North'
+  },
+  {
+    _id: ObjectId('68988a5da0f6935a8454db09'),
+    saleId: 9,
+    product: 'Shoes',
+    category: 'Fashion',
+    amount: 250,
+    date: '2024-04-18',
+    region: 'South'
+  }
+]
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion","amount":{$gte:
+...                                                                                     
+... 200                                                                                 
+...                                                                                     
+Aggregations> db.sales.aggregate([{$match:{"category":"Fashion","amount":{$gte:200}}}])
+[
+  {
+    _id: ObjectId('68988a5da0f6935a8454db03'),
+    saleId: 3,
+    product: 'Shoes',
+    category: 'Fashion',
+    amount: 200,
+    date: '2024-01-20',
+    region: 'North'
+  },
+  {
+    _id: ObjectId('68988a5da0f6935a8454db07'),
+    saleId: 7,
+    product: 'Watch',
+    category: 'Fashion',
+    amount: 300,
+    date: '2024-03-15',
+    region: 'North'
+    amount: 250,
+    date: '2024-04-18',
+    region: 'South'
+  }
+]
+Aggregations> db.sales.aggregate([{$match:{"amount":{$gt:200}}}},{$group:{_id:"$category"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:49)
+
+> 1 | db.sales.aggregate([{$match:{"amount":{$gt:200}}}},{$group:{_id:"$category"}}])
+    |                                                  ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$match:{"amount":{$gt:200}}}}{$group:{_id:"$category"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:49)
+
+> 1 | db.sales.aggregate([{$match:{"amount":{$gt:200}}}}{$group:{_id:"$category"}}])
+    |                                                  ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$match:{"amount":{$gt:200}}},{$group:{_id:"$category"}}])
+[ { _id: 'Electronics' }, { _id: 'Fashion' } ]
+Aggregations> db.sales.aggregate([{$match:{"amount":{$gt:200}}},{$group:{_id:"$category}zef"}}])
+[ { _id: null } ]
+Aggregations> db.sales.aggregate([{$match:{"amount":{$gt:200}}},{$group:{_id:"$category",totalValue:{$sum:"$amount"}}}}])  
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:104)
+
+> 1 | db.sales.aggregate([{$match:{"amount":{$gt:200}}},{$group:{_id:"$category",totalValue:{$sum:"$amount"}}}}])
+    |                      ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$match:{"amount":{$gt:200}}},{$group:{_id:"$category",totalValue:{$sum:"$amount"}}}])   
+[
+  { _id: 'Electronics', totalValue: 3150 },
+  { _id: 'Fashion', totalValue: 550 }
+]
+Aggregations> db.sales.aghgregate([{$group:{_id:{"$date":$month}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:51)
+
+> 1 | db.sales.aghgregate([{$group:{_id:{"$date":$month}}])
+    |                                                    ^
+  2 |
+
+Aggregations> db.sales.aghgregate([{$group:{_id:{"$date":$month},"totalSales":{$sum:"$amount"}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:80)
+
+> 1 | db.sales.aghgregate([{$group:{_id:{"$date":$month},"totalSales":{$sum:"$amount"}])
+    |                                                                                 ^ 
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}},totalSales:{$sum:"$amount"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:86)
+
+> 1 | db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}},totalSales:{$sum:"$amount"}}])
+    |                                                                                       ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}},totalSales:{$sum:"$amount"}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:85)
+
+> 1 | db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}},totalSales:{$sum:"$amount"}])
+    |                                                                                      ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}}},totalSales:{$sum:"$amount"}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:86)
+
+> 1 | db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}}},totalSales:{$sum:"$amount"}])
+    |                                                                                       ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}}},totalSales:{$sum:"$amount"}}])
+MongoServerError[Location40323]: A pipeline stage specification object must contain exactly one field.
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}},totalSales:{$sum:"$amount"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:86)
+
+> 1 | db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}},totalSales:{$sum:"$amount"}}])
+    |                                                                                   
+    ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:"$date"}},totalSales:{$sum:"$amount"}}}])
+MongoServerError[Location5157904]: PlanExecutor error during aggregation :: caused by :: month parameter 'date' must be coercible to date
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:{$toDate:"$date"}}},totalSales:{$sum:"$amount"}}}])
+[
+  { _id: { month: 2 }, totalSales: 1400 },
+  { _id: { month: 3 }, totalSales: 1300 },
+  { _id: { month: 1 }, totalSales: 1000 },
+  { _id: { month: 4 }, totalSales: 400 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:{$toDate:"$date"}}},totalSales:{$sum:"$amount"}}}])
+[
+  { _id: { month: 3 }, totalSales: 1300 },
+  { _id: { month: 4 }, totalSales: 400 },
+  { _id: { month: 2 }, totalSales: 1400 },
+  { _id: { month: 1 }, totalSales: 1000 }
+]
+Aggregations> db.sales.aggregate([$group:{_id:"$product",maxP:{$max:"$amount"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:26)
+
+> 1 | db.sales.aggregate([$group:{_id:"$product",maxP:{$max:"$amount"}}])
+    |                           ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:"$product",maxP:{$max:"$amount"}}}])     
+[
+  { _id: 'Mobile', maxP: 500 },
+  { _id: 'Headphones', maxP: 150 },
+  { _id: 'Laptop', maxP: 850 },
+  { _id: 'T-shirt', maxP: 50 },
+  { _id: 'Watch', maxP: 300 },
+  { _id: 'Shoes', maxP: 250 },
+  { _id: 'TV', maxP: 1000 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$product",maxP:{$max:"$amount"}}},{$sort:{maxP:-1}},{$limit:1}])
+[ { _id: 'TV', maxP: 1000 } ]
+Aggregations> db.sales.aggregate([{$group:{_id:"$product",AvgSales:{$avg:"$amount"}}}])
+[
+  { _id: 'Laptop', AvgSales: 825 },
+  { _id: 'Shoes', AvgSales: 225 },
+  { _id: 'Mobile', AvgSales: 500 },
+  { _id: 'TV', AvgSales: 1000 },
+  { _id: 'T-shirt', AvgSales: 50 },
+  { _id: 'Headphones', AvgSales: 150 },
+  { _id: 'Watch', AvgSales: 300 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$product",AvgSales:{$avg:"$amount"}}},{$sort:{AvgSales:-1}},{$limit:2}])
+[ { _id: 'TV', AvgSales: 1000 }, { _id: 'Laptop', AvgSales: 825 } ]
+Aggregations> db.sales.aggregate([{$group:{_id:null,AvgSales:{$avg:"$amount"}}},{$sort:{AvgSales:-1}},{$limit:2}])
+[ { _id: null, AvgSales: 455.55555555555554 } ]
+Aggregations> db.sales.aggregate([{$group:{_id:{month:{$month:{$todate:"$month"}}},totalSales:{$count:"$saleId"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:99)
+
+> 1 | db.sales.aggregate([{$group:{_id:{month:{$month:{$todate:"$month"}}},totalSales:{$count:"$saleId"}}])
+    |                                                                                   
+                 ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{
+... _id:{month:{$month:{$toDate:"$date"}}},totalSales:{$sum:1}}}])                      
+[
+  { _id: { month: 2 }, totalSales: 3 },
+  { _id: { month: 1 }, totalSales: 2 },
+  { _id: { month: 3 }, totalSales: 2 },
+  { _id: { month: 4 }, totalSales: 2 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$region"},numberOfSales:{$sum:1}}])
+MongoServerError[Location40323]: A pipeline stage specification object must contain exactly one field.
+Aggregations> db.sales.aggregate([{$group:{_id:"$region",numberOfSales:{$sum:1}}}])     
+[
+  { _id: 'West', numberOfSales: 2 },
+  { _id: 'East', numberOfSales: 1 },
+  { _id: 'South', numberOfSales: 3 },
+  { _id: 'North', numberOfSales: 3 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$region",numberOfSales:{$sum:"$amount"}}}])
+[
+  { _id: 'East', numberOfSales: 50 },
+  { _id: 'West', numberOfSales: 1850 },
+  { _id: 'North', numberOfSales: 1300 },
+  { _id: 'South', numberOfSales: 900 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$product",Revenue:{$sum:"$amount"}}},{$sort:-1},{$limit:3}])
+MongoServerError[Location15973]: the $sort key specification must be an object
+Aggregations> db.sales.aggregate([{$group:{_id:"$product",Revenue:{$sum:"$amount"}}},{$sort:{-1}},{$limit:3}])
+Uncaught:
+SyntaxError: Unexpected token (1:79)
+
+> 1 | db.sales.aggregate([{$group:{_id:"$product",Revenue:{$sum:"$amount"}}},{$sort:{-1}},{$limit:3}])
+    |                                                                                ^  
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:"$product",Revenue:{$sum:"$amount"}}},{$sort:{Revenue:-1}},{$limit:3}])
+[
+  { _id: 'Laptop', Revenue: 1650 },
+  { _id: 'TV', Revenue: 1000 },
+  { _id: 'Mobile', Revenue: 500 }
+]
+Aggregations> db.sales.aggregate([$group:{_id:"$category",TotalSales:{$sum:1}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:26)
+
+> 1 | db.sales.aggregate([$group:{_id:"$category",TotalSales:{$sum:1}}])
+    |                           ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:"$category",TotalSales:{$sum:1}}])       
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:65)
+
+> 1 | db.sales.aggregate([{$group:{_id:"$category",TotalSales:{$sum:1}}])
+    |                                                                  ^
+  2 |
+
+Aggregations> db.sales.aggregate([{$group:{_id:"$category",TotalSales:{$sum:1}}}])      
+[
+  { _id: 'Electronics', TotalSales: 5 },
+  { _id: 'Fashion', TotalSales: 4 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$region",AvgSales:{$avg:"$amount"}}},{$sort:{AvgSales:-1}}])
+[
+  { _id: 'West', AvgSales: 925 },
+  { _id: 'North', AvgSales: 433.3333333333333 },
+  { _id: 'South', AvgSales: 300 },
+  { _id: 'East', AvgSales: 50 }
+]
+Aggregations> db.sales.aggregate([{$match:{"category":"Electronics"}},{$group:{_id:null,
+totalSales:{$sum:1}}}])
+[ { _id: null, totalSales: 5 } ]
+Aggregations> db.sales.aggregate([{$group:{_id:"$ategory",totalSales:{$sum:1}}}])       
+[ { _id: null, totalSales: 9 } ]
+Aggregations> db.sales.aggregate([{$group:{_id:"$category",totalSales:{$sum:1}}}])      
+[
+  { _id: 'Electronics', totalSales: 5 },
+  { _id: 'Fashion', totalSales: 4 }
+]
+Aggregations> db.sales.aggregate([{$group:{_id:"$category",totalSales:{$sum:"$amount"}}}])
+[
+  { _id: 'Fashion', totalSales: 800 },
+  { _id: 'Electronics', totalSales: 3300 }
+]
+Aggregations>
