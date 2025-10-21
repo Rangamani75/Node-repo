@@ -1,0 +1,742 @@
+Current Mongosh Log ID: 6898ba019896b5859deec4a8
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.6
+Using MongoDB:          8.0.12
+Using Mongosh:          2.5.6
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/      
+
+------
+   The server generated these startup warnings when booting
+   2025-08-06T09:30:40.923+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+Aggregations         40.00 KiB
+App                 180.00 KiB
+BookRental          180.00 KiB
+Enrollment          216.00 KiB
+ToDo                 72.00 KiB
+admin                40.00 KiB
+bookLibrary           8.00 KiB
+config               72.00 KiB
+customersandOrder    80.00 KiB
+doctorConsultation  216.00 KiB
+example             192.00 KiB
+library-system      180.00 KiB
+local                72.00 KiB
+one2one             180.00 KiB
+task                108.00 KiB
+userComplex          72.00 KiB
+userProfile         108.00 KiB
+vehicle_db           12.00 KiB
+test> use customersandOrder
+switched to db customersandOrder
+customersandOrder> db.customers.aggregate([{$group:{_id:"$customerId",totalAmount:{$sum:"$amount"}}}])
+[ { _id: null, totalAmount: 0 } ]
+customersandOrder> db.customers.aggregate([{$group:{_id:"+",totalAmount:{$sum:"$amount"}}}])
+[ { _id: '+', totalAmount: 0 } ]
+customersandOrder> db.customers.aggregate([{$group:{_id:"$customerId",totalAmount:{$sum:"$amount"}}}])
+[ { _id: null, totalAmount: 0 } ]
+customersandOrder> db.orders.aggregate([{$group:{_id:"$customerId",totalAmount:{$sum:"$amount"}}}])  
+[
+  { _id: 'C1001', totalAmount: 800 },
+  { _id: 'C1002', totalAmount: 2000 },
+  { _id: 'C1005', totalAmount: 900 },
+  { _id: 'C1003', totalAmount: 700 },
+  { _id: 'C1004', totalAmount: 400 }
+]
+customersandOrder> db.customers.aggregate([{
+... $lookup:{from:"orders",loacalField:"_id",foreignField:"customerId",as:"orders"}}])
+MongoServerError[FailedToParse]: unknown argument to $lookup: loacalField
+customersandOrder> db.customers.aggregate([{ $lookup: { from: "orders", localField: "_id", foreignField: "customerId", as: "orders" } }])
+[
+  {
+    _id: 'C1001',
+    name: 'Alice',
+    city: 'New York',
+    orders: [
+      { _id: 1, customerId: 'C1001', amount: 500, product: 'Laptop' },
+      {
+        _id: 3,
+        customerId: 'C1001',
+        amount: 300,
+        product: 'Headphones'
+      }
+    ]
+  },
+  {
+    _id: 'C1002',
+    name: 'Bob',
+    city: 'Los Angeles',
+    orders: [
+      { _id: 2, customerId: 'C1002', amount: 1200, product: 'Phone' },
+      { _id: 6, customerId: 'C1002', amount: 800, product: 'Tablet' }
+    ]
+  },
+  {
+    _id: 'C1003',
+    name: 'Charlie',
+    city: 'Chicago',
+    orders: [
+      { _id: 4, customerId: 'C1003', amount: 700, product: 'Monitor' }
+    ]
+  },
+  {
+    _id: 'C1004',
+    name: 'David',
+    city: 'Houston',
+    orders: [
+      { _id: 5, customerId: 'C1004', amount: 400, product: 'Keyboard' }
+    ]
+  },
+  {
+    _id: 'C1005',
+    name: 'Eve',
+    city: 'Seattle',
+    orders: [
+      {
+        _id: 7,
+        customerId: 'C1005',
+        amount: 900,
+        product: 'Smartwatch'
+      }
+    ]
+  }
+]
+customersandOrder> db.orders.aggregate([$match:{amount:{$gt:500}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:27)
+
+> 1 | db.orders.aggregate([$match:{amount:{$gt:500}}])
+    |                            ^
+  2 |
+
+customersandOrder> db.orders.aggregate([{$match:{amount:{$gt:500}}}])
+[
+  { _id: 2, customerId: 'C1002', amount: 1200, product: 'Phone' },
+  { _id: 4, customerId: 'C1003', amount: 700, product: 'Monitor' },
+  { _id: 6, customerId: 'C1002', amount: 800, product: 'Tablet' },
+  { _id: 7, customerId: 'C1005', amount: 900, product: 'Smartwatch' }
+]
+customersandOrder> db.orders.aggregate([{
+... $lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"customerDetails"}},{$unw
+$unwind:"$customerDetails"}])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    customerDetails: { _id: 'C1003', name: 'Charlie', city: 'Chicago' }
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    customerDetails: { _id: 'C1004', name: 'David', city: 'Houston' }
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    customerDetails: { _id: 'C1005', name: 'Eve', city: 'Seattle' }
+  }
+]
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "customerId", foreignField: "_id", as: "customerDetails" } }])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    customerDetails: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    customerDetails: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    customerDetails: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    customerDetails: [ { _id: 'C1003', name: 'Charlie', city: 'Chicago' } ]
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    customerDetails: [ { _id: 'C1004', name: 'David', city: 'Houston' } ]
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    customerDetails: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    customerDetails: [ { _id: 'C1005', name: 'Eve', city: 'Seattle' } ]
+  }
+]
+customersandOrder>
+
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "customerId", foreignField: "_id", as: "customerDetails" } }, { $unwind: "$customerDetails" }])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    customerDetails: { _id: 'C1003', name: 'Charlie', city: 'Chicago' }
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    customerDetails: { _id: 'C1004', name: 'David', city: 'Houston' }
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    customerDetails: { _id: 'C1005', name: 'Eve', city: 'Seattle' }
+  }
+]
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "customerId", foreignField: "_id", as: "customerDetails" } }])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    customerDetails: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    customerDetails: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    customerDetails: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    customerDetails: [ { _id: 'C1003', name: 'Charlie', city: 'Chicago' } ]
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    customerDetails: [ { _id: 'C1004', name: 'David', city: 'Houston' } ]
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    customerDetails: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    customerDetails: [ { _id: 'C1005', name: 'Eve', city: 'Seattle' } ]
+  }
+]
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "customerId", foreignField: "_id", as: "customerDetails" } }, { $unwind: "$customerDetails" }])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    customerDetails: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    customerDetails: { _id: 'C1003', name: 'Charlie', city: 'Chicago' }
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    customerDetails: { _id: 'C1004', name: 'David', city: 'Houston' }
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    customerDetails: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    customerDetails: { _id: 'C1005', name: 'Eve', city: 'Seattle' }
+  }
+]
+customersandOrder> db.customers.aggregate([{$group:{_id:"$customerId",AvgAmount:{$avg:"$amount"}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:78)
+
+> 1 | db.customers.aggregate([{$group:{_id:"$customerId",AvgAmount:{$avg:"$amount"}}])
+    |                                                                               ^
+  2 |
+
+customersandOrder> db.customers.aggregate([{$group:{_id:"$customerId",AvgAmount:{$avg:"$amount"}}}]) 
+[ { _id: null, AvgAmount: null } ]
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder>
+
+customersandOrder> db.orders.aggregate([{$lookup:{
+... from:"customers",localField:"_id",foreignField:"customerId",as:"orders"}}])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    orders: []
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    orders: []
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    orders: []
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    orders: []
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    orders: []
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    orders: []
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    orders: []
+  }
+]
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "_id", foreignField: "customerId", as: "orders" } },{$unwind:"$orders"])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:135)
+
+> 1 | db.orders.aggregate([{ $lookup: { from: "customers", localField: "_id", foreignField: "customerId", as: "orders" } },{$unwind:"$orders"])
+    |                                                                                                
+                                        ^
+  2 |
+
+customersandOrder> db.orders.aggregate([{ $lookup: { from: "customers", localField: "_id", foreignField: "customerId", as: "orders" } },{$unwind:"$orders"}])
+
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"cus
+tomerId",as:"orders"}}])
+[
+  {
+    _id: 'C1001',
+    name: 'Alice',
+    city: 'New York',
+    orders: [
+      { _id: 1, customerId: 'C1001', amount: 500, product: 'Laptop' },
+      {
+        _id: 3,
+        customerId: 'C1001',
+        amount: 300,
+        product: 'Headphones'
+      }
+    ]
+  },
+  {
+    _id: 'C1002',
+    name: 'Bob',
+    city: 'Los Angeles',
+    orders: [
+      { _id: 2, customerId: 'C1002', amount: 1200, product: 'Phone' },
+      { _id: 6, customerId: 'C1002', amount: 800, product: 'Tablet' }
+    ]
+  },
+  {
+    _id: 'C1003',
+    name: 'Charlie',
+    city: 'Chicago',
+    orders: [
+      { _id: 4, customerId: 'C1003', amount: 700, product: 'Monitor' }
+    ]
+  },
+  {
+    _id: 'C1004',
+    name: 'David',
+    city: 'Houston',
+    orders: [
+      { _id: 5, customerId: 'C1004', amount: 400, product: 'Keyboard' }
+    ]
+  },
+  {
+    _id: 'C1005',
+    name: 'Eve',
+    city: 'Seattle',
+    orders: [
+      {
+        _id: 7,
+        customerId: 'C1005',
+        amount: 900,
+        product: 'Smartwatch'
+      }
+    ]
+  }
+]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"}])
+[
+  {
+    _id: 'C1001',
+    name: 'Alice',
+    city: 'New York',
+    orders: { _id: 1, customerId: 'C1001', amount: 500, product: 'Laptop' }
+  },
+  {
+    _id: 'C1001',
+    name: 'Alice',
+    city: 'New York',
+    orders: { _id: 3, customerId: 'C1001', amount: 300, product: 'Headphones' }
+  },
+  {
+    _id: 'C1002',
+    name: 'Bob',
+    city: 'Los Angeles',
+    orders: { _id: 2, customerId: 'C1002', amount: 1200, product: 'Phone' }
+  },
+  {
+    _id: 'C1002',
+    name: 'Bob',
+    city: 'Los Angeles',
+    orders: { _id: 6, customerId: 'C1002', amount: 800, product: 'Tablet' }
+  },
+  {
+    _id: 'C1003',
+    name: 'Charlie',
+    city: 'Chicago',
+    orders: { _id: 4, customerId: 'C1003', amount: 700, product: 'Monitor' }
+  },
+  {
+    _id: 'C1004',
+    name: 'David',
+    city: 'Houston',
+    orders: { _id: 5, customerId: 'C1004', amount: 400, product: 'Keyboard' }
+  },
+  {
+    _id: 'C1005',
+    name: 'Eve',
+    city: 'Seattle',
+    orders: { _id: 7, customerId: 'C1005', amount: 900, product: 'Smartwatch' }
+  }
+]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"},{$group:{_id:"_id",totalAmount:{$sum:"$orders.amount"}}}])
+
+[ { _id: '_id', totalAmount: 4800 } ]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"},{$group:{_id:"name",totalAmount:{$sum:"$orders.amount"}}}])
+[ { _id: 'name', totalAmount: 4800 } ]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"},{$group:{_id:"name",totalAmount:{$avg:"$orders.amount"}}}])
+[ { _id: 'name', totalAmount: 685.7142857142857 } ]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$group:{_id:"name",totalAmount:{$avg:"$orders.amount"}}}])
+[ { _id: 'name', totalAmount: null } ]
+customersandOrder> db.customers.aggregate([{$lookup:{from:"orders",localField:"_id",foreignField:"customerId",as:"orders"}},{$unwind:"$orders"},{$group:{_id:"name",totalAmount:{$avg:"$orders.amount"}}}])
+[ { _id: 'name', totalAmount: 685.7142857142857 } ]
+customersandOrder>                                                                                   
+                                                                                                     
+customersandOrder> db.orders.aggregate([{$group:{_id:"$customerId",avgAmount:{$avg:"$amount"}}}])
+[
+  { _id: 'C1002', avgAmount: 1000 },
+  { _id: 'C1003', avgAmount: 700 },
+  { _id: 'C1001', avgAmount: 400 },
+  { _id: 'C1004', avgAmount: 400 },
+  { _id: 'C1005', avgAmount: 900 }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}}])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    users: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    users: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    users: [ { _id: 'C1001', name: 'Alice', city: 'New York' } ]
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    users: [ { _id: 'C1003', name: 'Charlie', city: 'Chicago' } ]
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    users: [ { _id: 'C1004', name: 'David', city: 'Houston' } ]
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    users: [ { _id: 'C1002', name: 'Bob', city: 'Los Angeles' } ]
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    users: [ { _id: 'C1005', name: 'Eve', city: 'Seattle' } ]
+  }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"}])
+[
+  {
+    _id: 1,
+    customerId: 'C1001',
+    amount: 500,
+    product: 'Laptop',
+    users: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 2,
+    customerId: 'C1002',
+    amount: 1200,
+    product: 'Phone',
+    users: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 3,
+    customerId: 'C1001',
+    amount: 300,
+    product: 'Headphones',
+    users: { _id: 'C1001', name: 'Alice', city: 'New York' }
+  },
+  {
+    _id: 4,
+    customerId: 'C1003',
+    amount: 700,
+    product: 'Monitor',
+    users: { _id: 'C1003', name: 'Charlie', city: 'Chicago' }
+  },
+  {
+    _id: 5,
+    customerId: 'C1004',
+    amount: 400,
+    product: 'Keyboard',
+    users: { _id: 'C1004', name: 'David', city: 'Houston' }
+  },
+  {
+    _id: 6,
+    customerId: 'C1002',
+    amount: 800,
+    product: 'Tablet',
+    users: { _id: 'C1002', name: 'Bob', city: 'Los Angeles' }
+  },
+  {
+    _id: 7,
+    customerId: 'C1005',
+    amount: 900,
+    product: 'Smartwatch',
+    users: { _id: 'C1005', name: 'Eve', city: 'Seattle' }
+  }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product"}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:157)
+
+> 1 | db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product"}])
+    |                                                                                                
+                                                              ^
+  2 |
+
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product"}}])
+[
+  { _id: 1, productName: 'Laptop' },
+  { _id: 2, productName: 'Phone' },
+  { _id: 3, productName: 'Headphones' },
+  { _id: 4, productName: 'Monitor' },
+  { _id: 5, productName: 'Keyboard' },
+  { _id: 6, productName: 'Tablet' },
+  { _id: 7, productName: 'Smartwatch' }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{productName:"$product",orderedBy:"$users.name"}}])
+[
+  { _id: 1, productName: 'Laptop', orderedBy: 'Alice' },
+  { _id: 2, productName: 'Phone', orderedBy: 'Bob' },
+  { _id: 3, productName: 'Headphones', orderedBy: 'Alice' },
+  { _id: 4, productName: 'Monitor', orderedBy: 'Charlie' },
+  { _id: 5, productName: 'Keyboard', orderedBy: 'David' },
+  { _id: 6, productName: 'Tablet', orderedBy: 'Bob' },
+  { _id: 7, productName: 'Smartwatch', orderedBy: 'Eve' }
+]
+customersandOrder> db.orders.aggregate([{$lookup:{from:"customers",localField:"customerId",foreignField:"_id",as:"users"}},{$unwind:"$users"},{$project:{_id:0,productName:"$product",orderedBy:"$users.name"}}])
+[
+  { productName: 'Laptop', orderedBy: 'Alice' },
+  { productName: 'Phone', orderedBy: 'Bob' },
+  { productName: 'Headphones', orderedBy: 'Alice' },
+  { productName: 'Monitor', orderedBy: 'Charlie' },
+  { productName: 'Keyboard', orderedBy: 'David' },
+  { productName: 'Tablet', orderedBy: 'Bob' },
+  { productName: 'Smartwatch', orderedBy: 'Eve' }
+]
+customersandOrder>
+(To exit, press Ctrl+C again or Ctrl+D or type .exit)
+customersandOrder>
