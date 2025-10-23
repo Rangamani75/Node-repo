@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { getTask, addTask, updateTask, deleteTasksByPriority } = require("../controllers/taskControllers");
+const { getTask, addTask, updateTask, deleteTasksByPriority } = require("../controllers/taskcontrollers");
 const { validateTaskData } = require("../middleware/datacheckware");
 let taskRouter = express.Router();
 taskRouter.get("/",getTask)

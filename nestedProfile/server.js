@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const connectToDB = require("./configs/db");
-const profileRouter = require("./routes/profileRoute");
+const profileRouter = require("./routes/profileRoutes");
 const app = express();
 app.use(express.json());
 connectToDB()
