@@ -1,0 +1,40 @@
+// Abstract Beverage
+class Beverage {
+  getDescription() {}
+  getCost() {}
+}
+
+// Base Drink
+class GreenTea extends Beverage {
+  getDescription() {
+    return "Green Tea";
+  }
+  getCost() {
+    return 40;
+  }
+}
+
+// Sugar Decorator
+class Sugar extends Beverage {
+  constructor(beverage) {
+    super();
+    this.beverage = beverage;
+  }
+
+  getDescription() {
+    return this.beverage.getDescription() + " + Sugar";
+  }
+
+  getCost() {
+    return this.beverage.getCost() + 10;
+  }
+}
+
+// DOUBLE Sugar
+const tea = new Sugar(new Sugar(new GreenTea()));
+
+console.log(tea.getDescription());  
+// Green Tea + Sugar + Sugar
+
+console.log(tea.getCost());         
+// 60
