@@ -1,0 +1,41 @@
+class Character {
+  constructor(name) {
+    this.name = name;
+  }
+  getStats() {
+    throw new Error("getStats() must be implemented");
+  }
+}
+
+class Warrior extends Character {
+  getStats() {
+    return `Warrior ${this.name} - Strength: 90, Defense: 80`;
+  }
+}
+
+class Archer extends Character {
+  getStats() {
+    return `Archer ${this.name} - Agility: 80, Strength: 40`;
+  }
+}
+
+class Mage extends Character {
+  getStats() {
+    return `Mage ${this.name} - Intelligence: 90, Mana: 100`;
+  }
+}
+
+class CharacterFactory {
+  static createCharacter(type, name) {
+    if (type === "Warrior") return new Warrior(name);
+    if (type === "Archer") return new Archer(name);
+    if (type === "Mage") return new Mage(name);
+    throw new Error("Unknown character type");
+  }
+}
+
+const archer = CharacterFactory.createCharacter("Archer", "Eldrin");
+console.log(archer.getStats());
+
+const mage = CharacterFactory.createCharacter("Mage", "Gandalf");
+console.log(mage.getStats());
