@@ -1,0 +1,38 @@
+class Notification {
+  send(message) {
+    throw new Error("send() must be implemented");
+  }
+}
+
+class EmailNotification extends Notification {
+  send(message) {
+    console.log(`Sending EMAIL: ${message}`);
+  }
+}
+
+class SMSNotification extends Notification {
+  send(message) {
+    console.log(`Sending SMS: ${message}`);
+  }
+}
+
+class PushNotification extends Notification {
+  send(message) {
+    console.log(`Sending PUSH: ${message}`);
+  }
+}
+
+class NotificationFactory {
+  static createNotification(type) {
+    if (type === "Email") return new EmailNotification();
+    if (type === "SMS") return new SMSNotification();
+    if (type === "Push") return new PushNotification();
+    throw new Error("Unknown notification type");
+  }
+}
+
+const notifier = NotificationFactory.createNotification("Email");
+notifier.send("Welcome!");
+
+const smsNotifier = NotificationFactory.createNotification("SMS");
+smsNotifier.send("Your OTP is 123456");
